@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>edit form</title>
+</head>
+    <style>
+        body {
+            font-family: Calibri, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+        }
+
+        button {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 15px;
+            background-color: #7A9B76;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+<body>
+    <h2>edit task form</h2>
+
+    <form th:action="@{/sendUpdate}" th:object="${task}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <label>Title: <input type="text" th:field="*{title}" required/></label><br>
+        <label>Description: <input type="text" th:field="*{description}" required/></label><br>
+        <label>Status:
+            <select th:field="*{status}" id="status" required>
+                <option value="Pending" th:selected="${task.status == 'Pending'}">Pending</option>
+                <option value="Completed" th:selected="${task.status == 'Completed'}">Completed</option>
+            </select>
+        </label><br>
+        <label>Priority:
+            <select th:field="*{prio}" id="priority" required>
+                <option value="Low" th:selected="${task.status == 'Low'}">Low</option>
+                <option value="Medium" th:selected="${task.status == 'Medium'}">Medium</option>
+                <option value="High" th:selected="${task.status == 'High'}">High</option>
+            </select>
+        </label><br>
+        <label>Due Date: <input type="date" th:field="*{dueDate}" required/></label><br>
+        <button type="submit">Update Task</button>
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Details</title>
+</head>
+    <style>
+
+        body {
+            font-family: Calibri, sans-serif;
+            margin: 20px;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 10px;
+            border: 1px solid #000000;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background-color: #ff5834;
+            color: #fff;
+            border: 1px solid #ff5834;
+            border-radius: 4px;
+            padding: 1px;
+            display: inline-block;
+        }
+
+        .status-completed {
+            background-color: #00970e;
+            color: #fff;
+            border: 1px solid #00970e;
+            border-radius: 4px;
+            padding: 1px;
+            display: inline-block;
+        }
+
+        .priority-low {
+            background-color: #55ff00;
+            color: #000000;
+            border: 1px solid #55ff00;
+            border-radius: 4px;
+            padding: 1px;
+            display: inline-block;
+        }
+
+        .priority-medium {
+            background-color: #ffae00;
+            color: #000000;
+            border: 1px solid #ffae00;
+            border-radius: 4px;
+            padding: 1px;
+            display: inline-block;
+        }
+
+        .priority-high{
+            background-color: #a00000;
+            color: #fff;
+            border: 1px solid #a00000;
+            border-radius: 4px;
+            padding: 1px;
+            display: inline-block;
+        }
+
+
+        a {
+            display: block;
+            margin-top: 20px;
+            text-align: left;
+            color: #053C5E;
+            font-weight: bold;
+        }
+
+    </style>
+<body>
+    <h2>Task Details</h2>
+        <ul>
+            <!--<li>-- A DELETE -- ID: <span th:text="${task.id}"></span></li>-->
+            <li>Title: <span th:text="${task.title}"></span></li>
+            <li>Description: <span th:text="${task.description}"></span></li>
+            <li>Status: <span th:text="${task.status}" th:class="${task.status == 'Pending' ? 'status-pending' : 'status-completed'}"></span></li>
+            <li>Priority: <span th:text="${task.prio}" th:class="${task.prio eq 'Low' ? 'priority-low' : (task.prio eq 'Medium' ? 'priority-medium' : 'priority-high')}"></span></li>
+            <li>Due Date: <span th:text="${task.dueDate}"></span></li>
+        </ul>
+    <a href="/tasks">Back to Task List</a>
+</body>
+</html>

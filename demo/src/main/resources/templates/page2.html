@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <!--<link rel="stylesheet" th:href="@{/templates/styles.css}" />  -- DOES NOT WORK IDK WHY SO THERE IS THE STYLE FUNCTION -->
+        <title>2 do list jsp</title>
+    </head>
+    <style>
+
+        body {
+            font-family: Calibri, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .button {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 15px;
+            background-color: #7A9B76;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .tableList {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .theadDetails {
+            background-color: #FFD972;
+            color: #000000;
+        }
+
+        .tableList th, .tableList td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .tableList tbody tr:nth-child(even) {   /**couleur entre les lignes**/
+            background-color: #f2f2f2;
+        }
+
+        .tableList tbody tr:hover { /**hover**/
+            background-color: #ddd;
+        }
+
+        .tableList form {   /**affichage en ligne des btn**/
+            display: inline-block;
+            margin-right: 3px;
+        }
+
+        .tableList .btnDel{
+            padding: 6px 10px;
+            background-color: #DB5461;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .tableList .btnEdit{
+            padding: 6px 10px;
+            background-color: #7A9B76;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .tableList .btnDetails{
+            padding: 6px 10px;
+            background-color: #053C5E;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background-color: #ff5834;
+            color: #fff;
+            border: 1px solid #ff5834;
+            border-radius: 8px;
+            padding: 1px;
+            /**display: inline-block;**/
+        }
+
+        .status-completed {
+            background-color: #00970e;
+            color: #fff;
+            border: 1px solid #00970e;
+            border-radius: 8px;
+            padding: 1px;
+            /**display: inline-block;**/
+        }
+
+        .priority-low {
+            background-color: #55ff00;
+            color: #000000;
+            border: 1px solid #55ff00;
+            border-radius: 8px;
+            padding: 1px;
+            /**display: inline-block;**/
+        }
+
+        .priority-medium {
+            background-color: #ffae00;
+            color: #000000;
+            border: 1px solid #ffae00;
+            border-radius: 8px;
+            padding: 1px;
+            /**display: inline-block;**/
+        }
+
+        .priority-high{
+            background-color: #a00000;
+            color: #fff;
+            border: 1px solid #a00000;
+            border-radius: 8px;
+            padding: 1px;
+            /**display: inline-block;**/
+        }
+
+    </style>
+
+    <body>
+        <h1>To do List!</h1>
+
+        <form th:action="@{/additionForm}" method="get">
+            <button type="submit" class="button">Add Task</button>
+        </form>
+
+
+        <table class="tableList">
+            <thead class="theadDetails">
+                <tr>
+                    <!--<th>ID</th>-->
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                    <th>Due Date</th>
+                    <th>Controls</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="task : ${tasks}">
+                <!--<td th:text="${task.id}"></td>-->
+                <td th:text="${task.title}"></td>
+                <td th:text="${task.description}"></td>
+                <td th:text="${task.status}" th:class="${task.status eq 'Pending' ? 'status-pending' : 'status-completed'}"></td>
+                <td th:text="${task.prio}" th:class="${task.prio eq 'Low' ? 'priority-low' : (task.prio eq 'Medium' ? 'priority-medium' : 'priority-high')}"></td>
+                <td th:text="${task.dueDate}">Due Date</td>
+                <td>
+                    <form th:action="@{/taskDelete}" method="post">
+                        <input type="hidden" th:name="id" th:value="${task.id}" />
+                        <button class="btnDel" type="submit">Delete</button>
+                    </form>
+
+                    <form th:action="@{/editTask}" method="post" >
+                        <input type="hidden" th:name="id" th:value="${task.id}" />
+                        <button class="btnEdit" type="submit">Edit</button>
+                    </form>
+
+                    <form th:action="@{/seeTaskDetails}" method="get">
+                        <input type="hidden" th:name="id" th:value="${task.id}" />
+                        <button class="btnDetails" type="submit">See Details</button>
+                    </form>
+
+                </td>
+            </tr>
+
+            </tbody>
+
+        </table>
+
+    </body>
+</html>

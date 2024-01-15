@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add a Task to the List</title>
+</head>
+<style>
+
+    body {
+        font-family: Calibri, sans-serif;
+        margin: 20px;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    input, select {
+        padding: 8px;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    select {
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    button {
+        text-decoration: none;
+        color: #fff;
+        padding: 10px 15px;
+        background-color: #7A9B76;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    a {
+        display: block;
+        margin-top: 20px;
+        text-align: left;
+        color: #053C5E;
+        font-weight: bold;
+    }
+
+</style>
+
+<body>
+    <h2>Add a Task to the List</h2>
+    <form th:action="@{/addTask}" th:object="${task}"  method="post">
+        <label>Title: <input type="text" th:field="*{title}" id="title" required/></label><br>
+        <label>Description: <input type="text" th:field="*{description}" id="description" required/></label><br>
+        <label>Status:
+            <select th:field="*{status}" id="status" required>
+                <option value="Pending" th:selected="${task.status == 'Pending'}">Pending</option>
+                <option value="Completed" th:selected="${task.status == 'Completed'}">Completed</option>
+            </select>
+        </label><br>
+        <label>Priority:
+            <select th:field="*{prio}" id="priority" required>
+                <option value="Low" th:selected="${task.status == 'Low'}">Low</option>
+                <option value="Medium" th:selected="${task.status == 'Medium'}">Medium</option>
+                <option value="High" th:selected="${task.status == 'High'}">High</option>
+            </select>
+        </label><br>
+        <label>Due Date: <input type="date" th:field="*{dueDate}" id="dueDate" class="form-control"></label><br>
+        <button type="submit">Add Task</button>
+    </form>
+    <a href="/mainPage">Back to Task List</a>
+</body>
+</html>
